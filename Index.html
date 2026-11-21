@@ -1,0 +1,202 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+ content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b1020">
+<title>KOSPI Auto Trader V3</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #0b1020;
+  color: #f5f7ff;
+  font-family: -apple-system, BlinkMacSystemFont,
+               "Segoe UI", sans-serif;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding: 22px 16px 50px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h1 { font-size: 21px; margin: 0; }
+h2 { font-size: 16px; margin: 0 0 15px; }
+
+.sub {
+  color: #95a3bd;
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+.badge {
+  background: #193d35;
+  color: #4adea4;
+  border-radius: 20px;
+  padding: 7px 11px;
+  font-size: 12px;
+}
+
+.card {
+  background: #171f33;
+  border: 1px solid #29344e;
+  border-radius: 17px;
+  padding: 19px;
+  margin-top: 16px;
+}
+
+.label { color: #9baac4; font-size: 13px; }
+.big { font-size: 31px; font-weight: 750; margin: 10px 0; }
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.grid .card { margin: 0; padding: 15px; }
+.value { font-size: 19px; font-weight: 700; margin-top: 10px; }
+
+.profit { color: #ff626b; }
+.loss { color: #649bff; }
+.muted { color: #95a3bd; }
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 0;
+  border-bottom: 1px solid #29344e;
+  font-size: 14px;
+}
+.row:last-child { border-bottom: none; }
+
+.notice {
+  text-align: center;
+  font-size: 12px;
+  color: #a8b5cc;
+  margin-top: 24px;
+  line-height: 1.7;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<header>
+  <div>
+    <h1>KOSPI AUTO TRADER V3</h1>
+    <div class="sub">자동매매 모의투자 대시보드</div>
+  </div>
+  <span class="badge">PAPER · DEMO</span>
+</header>
+
+<section class="card">
+  <div class="label">총 평가자산</div>
+  <div class="big" id="equity">10,000,000원</div>
+  <div class="sub">초기 투자금 10,000,000원</div>
+</section>
+
+<div class="grid">
+  <div class="card">
+    <div class="label">현금 잔액</div>
+    <div class="value" id="cash">10,000,000원</div>
+  </div>
+  <div class="card">
+    <div class="label">보유 종목</div>
+    <div class="value" id="holdings">0 / 5</div>
+  </div>
+  <div class="card">
+    <div class="label">오늘 실현손익</div>
+    <div class="value" id="realized">0원</div>
+  </div>
+  <div class="card">
+    <div class="label">평가손익</div>
+    <div class="value" id="unrealized">0원</div>
+  </div>
+</div>
+
+<section class="card">
+  <h2>자동매매 설정</h2>
+  <div class="row">
+    <span class="muted">매매 모드</span>
+    <strong>모의투자</strong>
+  </div>
+  <div class="row">
+    <span class="muted">종목별 손절</span>
+    <strong class="loss">-2%</strong>
+  </div>
+  <div class="row">
+    <span class="muted">추적 익절 시작</span>
+    <strong class="profit">+3%</strong>
+  </div>
+  <div class="row">
+    <span class="muted">최고가 대비 하락</span>
+    <strong>-1%</strong>
+  </div>
+  <div class="row">
+    <span class="muted">하루 목표 실현수익</span>
+    <strong class="profit">+200,000원</strong>
+  </div>
+  <div class="row">
+    <span class="muted">하루 손실 제한</span>
+    <strong class="loss">-200,000원</strong>
+  </div>
+  <div class="row">
+    <span class="muted">최대 보유 종목</span>
+    <strong>5개</strong>
+  </div>
+</section>
+
+<section class="card">
+  <h2>보유 종목</h2>
+  <div class="muted" id="positions">
+    현재 보유 종목이 없습니다.
+  </div>
+</section>
+
+<section class="card">
+  <h2>최근 거래 내역</h2>
+  <div class="muted" id="trades">
+    아직 거래 내역이 없습니다.
+  </div>
+</section>
+
+<section class="card">
+  <h2>시스템 상태</h2>
+  <div class="row">
+    <span class="muted">대시보드</span>
+    <strong>화면 준비 완료</strong>
+  </div>
+  <div class="row">
+    <span class="muted">매매 엔진 연결</span>
+    <strong class="muted">연결 전</strong>
+  </div>
+  <div class="row">
+    <span class="muted">시장 데이터</span>
+    <strong class="muted">연결 전</strong>
+  </div>
+</section>
+
+<div class="notice">
+  KOSPI AUTO TRADER V3<br>
+  PAPER TRADING DEMO<br>
+  실제 주문 및 실시간 시세와 연결되지 않았습니다.
+</div>
+
+</div>
+</body>
